@@ -1,0 +1,728 @@
+[
+  {
+    "id": 1,
+    "nombre": "Radio Portátil MOTOTRBO R2",
+    "modelo": "MOTOTRBO R2",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil digital de dos vías con 64 canales, diseño ergonómico robusto y supresión de ruido SINC+.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-480 MHz",
+      "Potencia de salida: 5W (VHF) / 4W (UHF)",
+      "64 canales, espaciamiento 12.5/25 kHz",
+      "Protección IP55, resistente MIL-STD 810",
+      "Batería hasta 26.5 horas (digital)"
+    ],
+    "imagen": "r2.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1lK3GKiwSLBjzBq7KaYUJ_mgYuh6WKoSW/view",
+    "imagenes_extra": [
+      "r2_02.png",
+      "r2_03.png",
+      "r2_04.png",
+      "r2_05.png",
+      "r2_06.png",
+      "r2_07.png",
+      "r2_08.png"
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Radio Portátil MOTOTRBO R5 con Teclado Limitado (LKP)",
+    "modelo": "MOTOTRBO R5 LKP",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil digital con pantalla de 1.5\", Wi-Fi, Bluetooth 5.2 y GPS integrado para equipos de trabajo.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-527 MHz",
+      "Potencia de salida: 5W (VHF) / 4W (UHF)",
+      "256 canales, 50 zonas, pantalla 132x48 px",
+      "Wi-Fi 2.4/5 GHz, Bluetooth 5.2, GNSS integrado",
+      "Protección IP67, resistente MIL-STD 810H, batería hasta 32 horas"
+    ],
+    "imagen": "r5-lkp.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1yq6BYvWIXuLjawaP3E6RGAivQuLuDcjW/view",
+    "imagenes_extra": [
+      "r5-lkp_02.png",
+      "r5-lkp_04.png"
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Radio Portátil MOTOTRBO R5 Sin Teclado (NKP)",
+    "modelo": "MOTOTRBO R5 NKP",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil digital sin teclado con Wi-Fi, Bluetooth 5.2 y GPS, ideal para uso en campo exigente.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-527 MHz",
+      "Potencia de salida: 5W (VHF) / 4W (UHF)",
+      "64 canales, 4 zonas",
+      "Wi-Fi 2.4/5 GHz, Bluetooth 5.2, GNSS integrado",
+      "Protección IP67, resistente MIL-STD 810H, batería hasta 32 horas"
+    ],
+    "imagen": "r5-nkp.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1yq6BYvWIXuLjawaP3E6RGAivQuLuDcjW/view",
+    "imagenes_extra": [
+      "r5-nkp_02.png",
+      "r5-nkp_03.png",
+      "r5-nkp_04.png"
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Radio Portátil MOTOTRBO R7 Sin Teclado (NKP)",
+    "modelo": "MOTOTRBO R7 NKP",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio digital de dos vías con audio revolucionario, doble micrófono adaptable y conectividad Wi-Fi/Bluetooth avanzada.",
+    "specs": [
+      "Frecuencia: UHF/VHF, 800/900 MHz",
+      "Potencia de salida: 4W (UHF) / 5W (VHF)",
+      "Wi-Fi 2.4/5 GHz WPA3, Bluetooth 5.2, GPS GNSS",
+      "Protección IP68 (2m/2h) e IP66, resistente MIL-STD 810",
+      "Batería hasta 28 horas, sonoridad hasta 107 fonios"
+    ],
+    "imagen": "r7-nkp.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1qLuxUsgLX8qlrf8r1fYvxsgtvvsbU2Hs/view",
+    "imagenes_extra": [
+      "r7-nkp_02.png",
+      "r7-nkp_03.png",
+      "r7-nkp_04.png",
+      "r7-nkp_05.png",
+      "r7-nkp_06.png",
+      "r7-nkp_07.png"
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "Radio Portátil MOTOTRBO R7 con Teclado Completo (FKP)",
+    "modelo": "MOTOTRBO R7 FKP",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio digital de alto rendimiento con teclado completo, pantalla QVGA, Wi-Fi, Bluetooth y protección IP68.",
+    "specs": [
+      "Frecuencia: UHF/VHF, 800/900 MHz",
+      "Potencia de salida: 4W (UHF) / 5W (VHF)",
+      "Pantalla QVGA 2.4\" 320x240 px, teclado completo",
+      "Wi-Fi 2.4/5 GHz WPA3, Bluetooth 5.2, GPS GNSS",
+      "Protección IP68 e IP66, resistente MIL-STD 810, batería hasta 28 horas"
+    ],
+    "imagen": "r7-fkp.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1qLuxUsgLX8qlrf8r1fYvxsgtvvsbU2Hs/view",
+    "imagenes_extra": [
+      "r7-fkp_02.png",
+      "r7-fkp_03.png",
+      "r7-fkp_04.png",
+      "r7-fkp_05.png",
+      "r7-fkp_06.png"
+    ]
+  },
+  {
+    "id": 6,
+    "nombre": "Radio Portátil MOTOTRBO SL500e",
+    "modelo": "MOTOTRBO SL500e",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil ultradelgado de perfil bajo con diseño elegante, audio Bluetooth y 128 canales.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 403-480 MHz",
+      "Potencia de salida: 3W digital / 2W analógico",
+      "128 canales, espaciamiento 12.5/25 kHz",
+      "Bluetooth de audio y datos, ubicación en interiores",
+      "Batería 13.5 h digital, dimensiones 125.7x55x22.7 mm"
+    ],
+    "imagen": "sl500e.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1mrpUkqLvHiEvqXCS2kQ3lNGZs5PV1DUk/view",
+    "imagenes_extra": [
+      "sl500e_02.png",
+      "sl500e_03.png",
+      "sl500e_04.png",
+      "sl500e_05.png",
+      "sl500e_06.png",
+      "sl500e_07.png"
+    ]
+  },
+  {
+    "id": 7,
+    "nombre": "Radio Portátil MOTOTRBO DEP 250",
+    "modelo": "MOTOTRBO DEP250",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil digital de nivel básico para hotelería, manufactura ligera y organización de eventos, con 16 canales.",
+    "specs": [
+      "Frecuencia: UHF 403-480 MHz",
+      "Potencia de salida: 4W (alta) / 1W (baja)",
+      "16 canales, sin teclado ni pantalla",
+      "Protección IP54, resistente MIL-STD 810C/D/E/F/G",
+      "Batería hasta 20 h digital (2250 mAh), protocolo DMR"
+    ],
+    "imagen": "dep250.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1AaveAcZJR-FgqMv4oi5Sb1Nl9kqr5r-6/view",
+    "imagenes_extra": [
+      "dep250_02.png"
+    ]
+  },
+  {
+    "id": 8,
+    "nombre": "Radio Portátil Mag One X10d",
+    "modelo": "Mag One X10d",
+    "categoria": "Radios Portátiles",
+    "marca": "Motorola",
+    "descripcion": "Radio portátil digital versátil con cancelación de ruido, carga USB-C y botón de emergencia dedicado.",
+    "specs": [
+      "Frecuencia: UHF 400-470/450-527 MHz / VHF 136-174 MHz",
+      "Potencia de salida: 4W (UHF) / 5W (VHF)",
+      "64 canales, protección IP55, resistente MIL-STD 810",
+      "Carga USB-C, 3 botones programables, grabación de voz 8h",
+      "Batería hasta 23 horas (digital)"
+    ],
+    "imagen": "x10d.png",
+    "ficha_pdf": "https://drive.google.com/file/d/17HjfVV_motXfGTNX5iPE1eCBzdsTH7Ru/view",
+    "imagenes_extra": [
+      "x10d_02.png",
+      "x10d_03.png",
+      "x10d_04.png",
+      "x10d_05.png",
+      "x10d_06.png"
+    ]
+  },
+  {
+    "id": 9,
+    "nombre": "Radio Portátil Kenwood NX-1300-NK",
+    "modelo": "NX-1300-NK",
+    "categoria": "Radios Portátiles",
+    "marca": "Kenwood",
+    "descripcion": "Radio portátil digital NXDN/DMR con 64 canales, encriptación de 32,000 códigos y LED indicador de 7 colores.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-480 MHz",
+      "Potencia de salida: 5W",
+      "64 canales y 4 zonas (sin pantalla), protocolo NXDN y DMR",
+      "Encriptación ARC4, más de 32,000 códigos de seguridad",
+      "Compatibilidad FDMA 12.5/6.25 kHz y TDMA 12.5 kHz"
+    ],
+    "imagen": "NX1300NK-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1YvgNAj1Z9Z3sFcNvaAqNwpxNFNIDBK_F/view",
+    "imagenes_extra": [
+      "NX1300NK-AD-1-h.png",
+      "NX1300NK-AD-2-h.png",
+      "NX1300NK-AD-3-h.png",
+      "NX1300NK-FRENTE-h.png",
+      "NX1300NK-LAT-IZQ-h.png"
+    ]
+  },
+  {
+    "id": 10,
+    "nombre": "Radio Portátil Kenwood TK-3000-KV2",
+    "modelo": "TK-3000-KV2",
+    "categoria": "Radios Portátiles",
+    "marca": "Kenwood",
+    "descripcion": "Radio portátil analógico UHF compacto y robusto con 16 canales, IP54 y certificación MIL-STD-810.",
+    "specs": [
+      "Frecuencia: UHF",
+      "Potencia de salida: 4W (UHF)",
+      "16 canales, CTCSS y DCS, ancho de canal 12.5/25 kHz",
+      "Protección IP54, resistente MIL-STD-810 C/D/E/F/G",
+      "Peso 222g, VOX manos libres, scan de canales"
+    ],
+    "imagen": "TK3000KV2-portada_0S1000.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1_sjI_tqihahrtoQyC3a-Ax2jxQ04L6ma/view",
+    "imagenes_extra": [
+      "TK3000KV2-frontal_0S1000.png",
+      "TK3000KV2-lateral_derecha_0S1000.png",
+      "TK3000KV2-lateral_izquierda_0S1000.png"
+    ],
+    "accesorios": [
+      "adicional_5S1000.png"
+    ]
+  },
+  {
+    "id": 11,
+    "nombre": "Radio Portátil Hytera TC-320",
+    "modelo": "TC-320",
+    "categoria": "Radios Portátiles",
+    "marca": "Hytera",
+    "descripcion": "Radio portátil analógico de dos vías compacto y económico, ideal para comunicaciones básicas en negocios y comercio.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-470 MHz",
+      "Potencia de salida: 5W (VHF) / 4W (UHF)",
+      "16 canales, CTCSS/DCS",
+      "Operación analógica, diseño ligero y ergonómico",
+      "Resistente al polvo y salpicaduras"
+    ],
+    "imagen": "",
+    "ficha_pdf": "https://drive.google.com/file/d/1Uubdl-tBf9ESoO1ayBFnTauhRk-pL0Wp/view"
+  },
+  {
+    "id": 12,
+    "nombre": "Radio Portátil Hytera BD506",
+    "modelo": "BD506",
+    "categoria": "Radios Portátiles",
+    "marca": "Hytera",
+    "descripcion": "Radio portátil digital DMR de gama media con cobertura extendida y funciones avanzadas de seguridad.",
+    "specs": [
+      "Frecuencia: VHF 136-174 MHz / UHF 400-470 MHz",
+      "Potencia de salida: 5W (VHF) / 4W (UHF)",
+      "1024 canales, protocolo DMR Tier I y II",
+      "Encriptación digital, llamadas individuales, grupales y generales",
+      "Resistencia IP54, MIL-STD 810"
+    ],
+    "imagen": "",
+    "ficha_pdf": "https://drive.google.com/file/d/1rDJevzUhbUTnG19mZYRBPGrzha2opUPC/view"
+  },
+  {
+    "id": 13,
+    "nombre": "Radio Portátil PTTPRO DMR2000",
+    "modelo": "DMR2000",
+    "categoria": "Radios Portátiles",
+    "marca": "PTTPRO",
+    "descripcion": "Radio digital DMR de uso extremadamente rudo, sumergible IP67, compatible con Motorola Tier I y II.",
+    "specs": [
+      "Frecuencia: UHF 400-470 MHz / VHF 136-174 MHz",
+      "Potencia de salida: 5W (baja) / 8W (alta)",
+      "16 canales, protocolo DMR ETSI TS 102 361",
+      "Protección IP67, resistente a caídas de 5 metros",
+      "Batería 2200 mAh, temperatura de operación -30°C a +60°C"
+    ],
+    "imagen": "DMR2000_02.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1PuNKeNXA2Ukr2vof0EK3Ruht0cXza_yb/view",
+    "imagenes_extra": []
+  },
+  {
+    "id": 14,
+    "nombre": "Radio PoC PTTPRO PoCLite V2",
+    "modelo": "PoCLite V2",
+    "categoria": "Radios Portátiles",
+    "marca": "PTTPRO",
+    "descripcion": "Radio Push-to-Talk sobre red celular 4G LTE con Android 10, GPS y cifrado AES 256 para comunicación global.",
+    "specs": [
+      "Red: 4G LTE (FDD/TDD), 3G, 2G, Wi-Fi 2.4/5 GHz",
+      "Android 10, pantalla TFT 1.77\" 128x160",
+      "GPS integrado, Bluetooth 4.0 y NFC",
+      "Protección IP67, batería 4000 mAh",
+      "Cifrado AES 128/256, peso 185g"
+    ],
+    "imagen": "polite_01.jpg",
+    "ficha_pdf": "https://drive.google.com/file/d/1qmqm05zpeQRrZmf8OtBJn9ZIPE_KlobA/view",
+    "imagenes_extra": []
+  },
+  {
+    "id": 15,
+    "nombre": "Radio Móvil Kenwood NX-1800-HNK2",
+    "modelo": "NX-1800-HNK2",
+    "categoria": "Radios Móviles",
+    "marca": "Kenwood",
+    "descripcion": "Radio móvil digital NXDN para vehículo con 260 canales, 50W VHF/45W UHF y encriptación avanzada.",
+    "specs": [
+      "Potencia de salida: 50W (VHF) / 45W (UHF)",
+      "260 canales, 128 zonas, protocolo NXDN y analógico",
+      "Pantalla LCD 10 caracteres, LED 7 colores",
+      "Protección IP54, resistente MIL-STD-810 C/D/E/F/G/H",
+      "Encriptación digital más de 32,000 códigos, GPS compatible"
+    ],
+    "imagen": "NX1800HNK2-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1aPmDyO_M7GO-64XhaxwRunlMOkra5DTK/view",
+    "imagenes_extra": [
+      "NX1800HNK2-AD-1-h.png",
+      "NX1800HNK2-AD-2-h.png",
+      "NX1800HNK2-AD-3-h.png",
+      "NX1800HNK2-AD-4-h.png",
+      "NX1800HNK2-AD-5-h.png",
+      "NX1800HNK2-AD-6-h.png",
+      "NX1800HNK2-AD-7-h.png",
+      "NX1800HNK2-FRENTE-h.png",
+      "NX1800HNK2-LAT-DER-h.png",
+      "NX1800HNK2-LAT-IZQ-h.png"
+    ],
+    "accesorios": [
+      "NX1800HNK2-AD-7-h.png"
+    ]
+  },
+  {
+    "id": 16,
+    "nombre": "Radio Móvil MOTOTRBO DEM300",
+    "modelo": "MOTOTRBO DEM300",
+    "categoria": "Radios Móviles",
+    "marca": "Motorola",
+    "descripcion": "Radio móvil digital/analógico para vehículo con pantalla numérica, clasificación IP54 y soporte DMR.",
+    "specs": [
+      "Modos analógico y digital (DMR)",
+      "Pantalla numérica, compatible con estándares Narrowbanding",
+      "Protección IP54",
+      "Modo directo de capacidad dual",
+      "Encriptación analógica, compatible con Transmit Interrupt"
+    ],
+    "imagen": "dem300.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1oIYLlMM9bua7GnGOZ0Bcf-nFZYRgnXhm/view",
+    "imagenes_extra": [
+      "dem300_02.png"
+    ]
+  },
+  {
+    "id": 17,
+    "nombre": "Mini Cámara Bala Térmica Dahua",
+    "modelo": "DHI-TPC-BF1241",
+    "categoria": "CCTV",
+    "marca": "Dahua",
+    "descripcion": "Mini cámara bala híbrida térmica/visible con IA para detección de intrusiones, personas y vehículos.",
+    "specs": [
+      "Sensor visible: CMOS 4 MP resolución máxima",
+      "Canal térmico: detector VOx no refrigerado, 256x192 px",
+      "Funciones IA: detección de calor, trampa, tabaquismo y llamadas",
+      "Protección IP67, luz blanca integrada y alarma de audio",
+      "Alimentación 12 VCC o PoE"
+    ],
+    "imagen": "PRINCIPAL-DoLynk-Care.png",
+    "ficha_pdf": null,
+    "imagenes_extra": []
+  },
+  {
+    "id": 18,
+    "nombre": "Cámara Bala Hikvision DS-2CE16D0T-LFS",
+    "modelo": "DS-2CE16D0T-LFS",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Cámara bullet 2 MP con doble luz (IR+blanca), micrófono integrado y señal conmutable TVI/AHD/CVI/CVBS.",
+    "specs": [
+      "Resolución: 2 MP, 1920×1080",
+      "Lente fija 2.8 mm o 3.6 mm, FOV 101° / 78°",
+      "Luz IR hasta 30 m, luz blanca hasta 20 m",
+      "Audio por cable coaxial, micrófono integrado",
+      "Protección IP67, señal TVI/AHD/CVI/CVBS"
+    ],
+    "imagen": "DS2CE16D0TLFS-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "DS2CE16D0TLFS-AD-1-h.png",
+      "DS2CE16D0TLFS-AD-2-h.png",
+      "DS2CE16D0TLFS-AD-3-h.png",
+      "DS2CE16D0TLFS-AD-4-h.png"
+    ]
+  },
+  {
+    "id": 19,
+    "nombre": "Cámara Domo PTZ Epcom EPMD4XV2",
+    "modelo": "EPMD4XV2",
+    "categoria": "CCTV",
+    "marca": "Epcom",
+    "descripcion": "Cámara domo PTZ 2 MP con zoom óptico 4x, 220 presets y compatibilidad 4 en 1 (AHD/TVI/CVI/CVBS).",
+    "specs": [
+      "Resolución: 2 MP, 1920×1080, sensor 1/2.8\" CMOS",
+      "Zoom óptico 4X, distancia IR hasta 20 m",
+      "Movimiento horizontal 355° infinito, inclinación 0°-90°",
+      "Velocidad pan/tilt hasta 80°/s, 220 presets",
+      "Protección IP66, señal 4 en 1 AHD/TVI/CVI/CVBS"
+    ],
+    "imagen": "EPCOM-portada_0S1000.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "EPCOM-frontal_0S1000.png",
+      "EPCOM-lateral_derecha_0S1000.png",
+      "EPCOM-lateral_izquierda_0S1000.png"
+    ]
+  },
+  {
+    "id": 20,
+    "nombre": "Cámara Domo Hikvision DS-2CD2763G2-LIZS2U",
+    "modelo": "DS-2CD2763G2-LIZS2U",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Cámara domo IP 6 MP AcuSense con lente varifocal motorizada, doble micrófono y Smart Hybrid Light.",
+    "specs": [
+      "Resolución: 6 MP, 3200×1800, sensor 1/2.4\" CMOS",
+      "Lente varifocal motorizada 2.8-12 mm, FOV 102.3°-35°",
+      "Smart Hybrid Light: IR + luz blanca hasta 40 m",
+      "AcuSense: clasificación humana y vehicular por IA",
+      "Protección IP67 e IK10, WDR 120 dB, compresión H.265+"
+    ],
+    "imagen": "DS2CD2763G2LIZS2U-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": []
+  },
+  {
+    "id": 21,
+    "nombre": "Cámara Domo Hikvision DS-2CE76D0T-LMFS",
+    "modelo": "DS-2CE76D0T-LMFS",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Cámara turret 2 MP con doble luz (IR+blanca), micrófono integrado por cable coaxial y señal 4 en 1.",
+    "specs": [
+      "Resolución: 2 MP, 1920×1080, sensor CMOS",
+      "Lente fija 2.8 mm o 3.6 mm",
+      "Luz IR hasta 30 m, luz blanca hasta 20 m",
+      "Audio por cable coaxial, micrófono integrado",
+      "Protección IP67, señal TVI/AHD/CVI/CVBS"
+    ],
+    "imagen": "DS2CE76D0TLMFS-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "DS2CE76D0TLMFS-AD-1-h.png",
+      "DS2CE76D0TLMFS-AD-2-h.png",
+      "DS2CE76D0TLMFS-AD-3-h.png"
+    ]
+  },
+  {
+    "id": 22,
+    "nombre": "Cámara PTZ Hikvision DS-2DE7232IW-AE",
+    "modelo": "DS-2DE7232IW-AE",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Domo de velocidad IP 2 MP con zoom óptico 32x, IR hasta 150 m y compresión H.265+.",
+    "specs": [
+      "Resolución: 2 MP, 1920×1080 @ 60fps, sensor 1/2.8\" CMOS",
+      "Zoom óptico 32x (4.8-153 mm), zoom digital 16x",
+      "IR hasta 150 m, iluminación mínima color 0.005 Lux",
+      "WDR 120 dB, 24 máscaras de privacidad programables",
+      "Alimentación 24VAC / Hi-PoE, compresión H.265+"
+    ],
+    "imagen": "DS2DE7232IWAE-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "DS2DE7232IWAE-AD-1-h.png"
+    ]
+  },
+  {
+    "id": 23,
+    "nombre": "Cámara PTZ Hikvision DS-2AE4215TI-D(E)",
+    "modelo": "DS-2AE4215TI-D(E)",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Domo de velocidad 2 MP turbo 4\" con zoom óptico 15x, IR hasta 100 m y salida de video conmutable TVI/AHD/CVI.",
+    "specs": [
+      "Resolución: 2 MP, 1920×1080 @ 25/30fps, sensor 1/2.8\" CMOS",
+      "Zoom óptico 15x, zoom digital 16x",
+      "IR hasta 100 m, iluminación mínima 0.005 Lux (color)",
+      "WDR ≥120 dB, 8 máscaras de privacidad programables",
+      "Salida de video conmutable TVI/AHD/CVI, posicionamiento 3D"
+    ],
+    "imagen": "DS2AE4215TID(E)-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "DS2AE4215TID(E)-AD-1-h.png",
+      "DS2AE4215TID(E)-AD-2-h.png",
+      "DS2AE4215TID(E)-AD-3-h.png",
+      "DS2AE4215TID(E)-AD-4-h.png"
+    ]
+  },
+  {
+    "id": 24,
+    "nombre": "DVR Dahua DH-XVR5104HS-I3/T",
+    "modelo": "DH-XVR5104HS-I3/T",
+    "categoria": "CCTV",
+    "marca": "Dahua",
+    "descripcion": "Grabador DVR WizSense 4 canales penta-brid 5MP con IA para protección perimetral y reconocimiento facial.",
+    "specs": [
+      "4 canales analógicos (HDCVI/AHD/TVI/CVBS) + hasta 6 canales IP",
+      "Resolución máxima 5 MP Lite, compresión H.265+",
+      "IA: protección perimetral, reconocimiento facial 2 canales, SMD Plus",
+      "Ancho de banda de entrada hasta 32 Mbps, soporte 1 HDD",
+      "Comunicación bidireccional por cable coaxial en 4 canales"
+    ],
+    "imagen": "DAHUA-DH-XVR5104HS-I3-T-Grabador-4-Canales-5MP-Lite-Principal.png",
+    "ficha_pdf": null,
+    "imagenes_extra": []
+  },
+  {
+    "id": 25,
+    "nombre": "DVR Dahua DH-XVR5216A-X",
+    "modelo": "DH-XVR5216A-4KL-I3/T",
+    "categoria": "CCTV",
+    "marca": "Dahua",
+    "descripcion": "Grabador DVR WizSense 16 canales 4K con IA avanzada, reconocimiento facial y protección perimetral.",
+    "specs": [
+      "16 canales analógicos (HDCVI/AHD/TVI/CVBS) + hasta 32 canales IP",
+      "Resolución máxima 4K/5MP, compresión H.265+",
+      "IA: protección perimetral 8 canales, reconocimiento facial 4 canales, SMD Plus 16 canales",
+      "Ancho de banda de entrada hasta 128 Mbps, soporte 2 HDD",
+      "Comunicación bidireccional por cable coaxial en 16 canales"
+    ],
+    "imagen": "Dahua-DH-XVR5216A-4KL-I3-T-Grabador-16-Canales-4K-WizSense-Principal.png",
+    "ficha_pdf": null,
+    "imagenes_extra": []
+  },
+  {
+    "id": 26,
+    "nombre": "NVR Dahua DHI-NVR5216-16P-I/L",
+    "modelo": "DHI-NVR5216-16P-I/L",
+    "categoria": "CCTV",
+    "marca": "Dahua",
+    "descripcion": "Grabador NVR WizMind 16 canales con 16 puertos PoE, reconocimiento facial y protección perimetral con IA.",
+    "specs": [
+      "16 canales IP, 16 puertos PoE (1-8 con ePoE y EoC)",
+      "Compresión H.265+/H.265/H.264+/H.264/MJPEG",
+      "IA: reconocimiento facial 4 canales, protección perimetral 12 canales, SMD Plus",
+      "Hasta 20 bases de datos de rostros con 200,000 imágenes",
+      "Soporte 2 HDD, metadatos de video hasta 4 canales"
+    ],
+    "imagen": "DHI-NVR5216-16P-I_L.png",
+    "ficha_pdf": null,
+    "imagenes_extra": []
+  },
+  {
+    "id": 27,
+    "nombre": "NVR Hikvision DS-7604NI-K1/4P(C)",
+    "modelo": "DS-7604NI-K1/4P(C)",
+    "categoria": "CCTV",
+    "marca": "Hikvision",
+    "descripcion": "Grabador NVR 4 canales con 4 puertos PoE, salida HDMI 4K y análisis de contenido de video inteligente.",
+    "specs": [
+      "4 canales IP, 4 puertos PoE independientes",
+      "Ancho de banda de entrada 40 Mbps, salida 80 Mbps",
+      "Salida HDMI hasta 4K (4096x2160), salida VGA simultánea",
+      "Compresión H.265+/H.265/H.264+/H.264",
+      "Soporte 1 SATA HDD hasta 8 TB, Motion Detection 2.0"
+    ],
+    "imagen": "DS7604NIK1_4P(C)-h.png",
+    "ficha_pdf": null,
+    "imagenes_extra": [
+      "DS7604NIK1_4P(C)-AD-1-h.png",
+      "DS7604NIK1_4P(C)-LAT-IZQ-h.png"
+    ]
+  },
+  {
+    "id": 28,
+    "nombre": "Barrera Vehicular Epcom XBF4MR / XBF4ML",
+    "modelo": "XBF4MR / XBF4ML",
+    "categoria": "Control de Acceso",
+    "marca": "Epcom",
+    "descripcion": "Barrera vehicular automática para brazos de hasta 4 metros, disponible en versión derecha e izquierda.",
+    "specs": [
+      "Longitud máxima del brazo: 4 metros",
+      "Tiempo de apertura: 3 segundos",
+      "Ciclos por día: 2400, motor 800,000 ciclos",
+      "Voltaje: 127Vac 60Hz, consumo 120W, torque 150 Nm",
+      "Temperatura de operación: -20°C a +50°C"
+    ],
+    "imagen": "KTXBF4MR-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1TnRdId7tGNa4q2Hwfap2wNppJXteQcBj/view",
+    "imagenes_extra": []
+  },
+  {
+    "id": 29,
+    "nombre": "Lector Biométrico Hikvision DS-K1201A-EF",
+    "modelo": "DS-K1201A-EF",
+    "categoria": "Control de Acceso",
+    "marca": "Hikvision",
+    "descripcion": "Lector de huella dactilar y tarjeta EM con procesador de 32 bits, RS-485 y capacidad para 5,000 huellas.",
+    "specs": [
+      "Módulo óptico CMOS de reconocimiento de huella dactilar",
+      "Capacidad: hasta 5,000 huellas almacenadas",
+      "Comunicación RS-485 a 19200bps con protocolo CRC",
+      "Lectura de tarjeta EM, distancia de inducción 30-100 mm",
+      "Modos de autenticación: tarjeta, huella o tarjeta+huella"
+    ],
+    "imagen": "DSK1201AEF-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1WK-RBJ0yDAdWc18QGzyGl_nIZ__YmtgM/view",
+    "imagenes_extra": [
+      "DSK1201AEF-AD-1-h.png",
+      "DSK1201AEF-AD-2-h.png",
+      "DSK1201AEF-AD-3-h.png"
+    ]
+  },
+  {
+    "id": 30,
+    "nombre": "Terminal Biométrica Facial Hikvision DS-K1T673DWX-E1",
+    "modelo": "DS-K1T673DWX-E1",
+    "categoria": "Control de Acceso",
+    "marca": "Hikvision",
+    "descripcion": "Terminal de control de acceso con reconocimiento facial de alta precisión, pantalla táctil de 7\" y Wi-Fi integrado.",
+    "specs": [
+      "Pantalla LCD táctil 7\" IPS 600×1024, lente gran angular 2 MP",
+      "Reconocimiento facial <0.2 s/usuario, precisión ≥99%",
+      "Capacidad: 10,000 rostros, 50,000 tarjetas, 150,000 eventos",
+      "Wi-Fi 2.4G 802.11b/g/n, interfaz RJ-45 10/100/1000M",
+      "Distancia de reconocimiento: 0.3 a 3 metros"
+    ],
+    "imagen": "DSK1T673DWX-portada_0S1000.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1ZTozSgvHaS9-L3Trwz6E5YeZLTMk7zin/view",
+    "imagenes_extra": [
+      "DSK1T673DWX-lateral_izquierda_0S1000.png"
+    ]
+  },
+  {
+    "id": 31,
+    "nombre": "Detector de Metales Arco INTELL-233-ZIR",
+    "modelo": "INTELL-233-ZIR",
+    "categoria": "Control de Acceso",
+    "marca": "Intelliscan",
+    "descripcion": "Detector de metales de arco walk-through con 33 zonas independientes de detección y panel LED de 180°.",
+    "specs": [
+      "33 zonas de detección independientes",
+      "Panel LED de visualización de alarma, ángulo de visión 180°",
+      "20 presets de nivel de seguridad programables de fábrica",
+      "4 procesadores de señal digital programables por el usuario",
+      "Contador de tráfico inteligente, luces de control de paso"
+    ],
+    "imagen": "INTELL233ZIR-FRENTE-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/11mIcK7gS6HjUPvyItiWUdHjifKGl2fNW/view",
+    "imagenes_extra": []
+  },
+  {
+    "id": 32,
+    "nombre": "Detector de Metales Manual Ranger-1500",
+    "modelo": "RANGER-1500",
+    "categoria": "Control de Acceso",
+    "marca": "Ranger Security",
+    "descripcion": "Detector de metales manual de mano con alarma visual, sonora y vibración silenciosa para revisión de personas.",
+    "specs": [
+      "Alarmas: LED visual, beep audible y vibración silenciosa",
+      "Sensibilidad totalmente ajustable",
+      "Gran área de escaneo, diseño ergonómico",
+      "Operación con baterías desechables o recargables",
+      "Carcasa ABS de alto impacto, garantía 24 meses"
+    ],
+    "imagen": "RANGER1500-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1uedh4prpXOdVdgbOLdujpvE6wnAKJswP/view",
+    "imagenes_extra": [
+      "RANGER1500-AD-1-h.png",
+      "RANGER1500-AD-2-h.png",
+      "RANGER1500-AD-3-h.png",
+      "RANGER1500-AD-4-h.png",
+      "RANGER1500-AD-5-h.png"
+    ]
+  },
+  {
+    "id": 33,
+    "nombre": "Torniquete AccessPRO AP-1000-HD",
+    "modelo": "AP-1000-HD",
+    "categoria": "Control de Acceso",
+    "marca": "AccessPRO",
+    "descripcion": "Torniquete de medio cuerpo en acero inoxidable con activación por contacto seco y flujo de 30-35 personas/min.",
+    "specs": [
+      "Dimensiones: 480×280×960 mm, material acero inoxidable SUS 304",
+      "Ancho de pasaje: ≤550 mm",
+      "Flujo de personas: 30-35 por minuto",
+      "Tiempo de operación: 0.2 segundos",
+      "Voltaje de entrada: 100-240Vac, voltaje de operación 24Vdc"
+    ],
+    "imagen": "AP1000HD-h.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1PSwxMgQlCN8uNVbz5i2rn3Iz8IWrfFWl/view",
+    "imagenes_extra": [
+      "AP1000HD-AD-1-h.png",
+      "AP1000HD-AD-2-h.png",
+      "AP1000HD-AD-4-h.png",
+      "AP1000HD-AD-6-h.png"
+    ]
+  },
+  {
+    "id": 34,
+    "nombre": "Puerta de Cortesía AccessPRO XT-100-C",
+    "modelo": "XT-100-C",
+    "categoria": "Control de Acceso",
+    "marca": "AccessPRO",
+    "descripcion": "Torniquete bidireccional industrial de acero al carbón para interiores y exteriores con paso de emergencia libre.",
+    "specs": [
+      "Dimensiones: 1500×1275×2210 mm (L×W×H), peso 290 kg",
+      "Ancho de paso: ≤650 mm, ángulo de rotación 90°",
+      "Material: acero al carbón, protección IP65",
+      "Velocidad normal: 25 personas/min, emergencia: 40 personas/min",
+      "Alimentación: 110Vca 60Hz, operación interna 24Vcd/150W, ciclos >1,000,000"
+    ],
+    "imagen": "XT100C-portada_0S1000.png",
+    "ficha_pdf": "https://drive.google.com/file/d/1SUWc4cLOw8HbH-BrfD1RSMz0QxXcpmCW/view",
+    "imagenes_extra": [
+      "XT100C-AD-4-h.png",
+      "XT100C-LAT-DER-h.png",
+      "XT100C-LAT-IZQ-h.png"
+    ]
+  }
+]

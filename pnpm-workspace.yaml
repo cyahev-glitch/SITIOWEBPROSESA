@@ -1,0 +1,13 @@
+# pnpm-workspace.yaml — ARCHIVO TECNICO
+# Le dice al instalador de programas (pnpm) donde vive el proyecto y
+# para que tipo de computadoras debe preparar las cosas. No se toca.
+packages:
+  - '.'
+supportedArchitectures:
+  os:
+    - linux
+  cpu:
+    - x64
+    - arm64
+  libc:
+    - glibc

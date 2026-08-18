@@ -1,0 +1,5 @@
+/* Archivo tecnico de configuracion (Tailwind CSS), es lo que permite usar los estilos rapidos en el codigo (como "text-white" o "rounded-xl"). No lo edites, si algo se ve mal es mejor pedir ayuda a un desarrollador. */
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@import 'tw-animate-css';

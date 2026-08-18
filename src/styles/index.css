@@ -1,0 +1,4 @@
+/* Este archivo solo une los otros 3 archivos de estilos (letras, Tailwind y colores/tema). No hay que tocarlo. */
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
