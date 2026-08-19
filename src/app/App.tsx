@@ -129,6 +129,24 @@ for (const [path, mod] of Object.entries(_productImageGlob)) {
   PRODUCT_IMG[filename] = mod.default;
 }
 
+/* ─── COMPARADOR DE TEXTOS (marcas y categorias) ───────────────
+   Esta funcion sirve para comparar textos sin que importen las
+   mayusculas, los acentos ni los espacios de sobra.
+
+   Gracias a esto, en el Google Sheet da igual escribir "Motorola",
+   "MOTOROLA", "motorola" o "Motorola " (con espacio al final): el
+   sitio las trata como la misma marca y no duplica el filtro.
+
+   Lo mismo con las categorias: "Radios Portátiles" y "radios
+   portatiles" son la misma.
+   ────────────────────────────────────────────────────────────── */
+const norm = (s?: string): string =>
+  (s ?? "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
 /* ─── TIPOS ─── */
 // Aqui se define la "forma" que debe tener cada producto y cada accesorio (que datos trae cada uno). Es una parte tecnica; normalmente NO hay que tocarla para hacer cambios normales del sitio.
 type Section = "inicio" | "servicios" | "catalogo" | "distribuidores" | "nosotros" | "clientes" | "contacto";
@@ -421,11 +439,28 @@ export default function App() {
       })
       .catch(() => {});
   }, []);
+  // Arma la lista de categorias del filtro. Si dos productos traen la misma
+  // categoria escrita distinto ("CCTV" y "cctv"), aparece una sola vez.
   const CATEGORIES = useMemo(() => {
-    const rawCats = Array.from(new Set(productos.map((p) => p.category)));
-    return ["Todos", "Radiocomunicación", ...rawCats.filter((c) => c.toLowerCase() !== "radios portátiles" && c.toLowerCase() !== "radios móviles" && c.toLowerCase() !== "radiocomunicación"), "Accesorios"];
+    const vistas = new Map<string, string>();
+    productos.forEach((p) => {
+      const clave = norm(p.category);
+      if (clave && !vistas.has(clave)) vistas.set(clave, (p.category ?? "").trim());
+    });
+    const radios = ["radios portatiles", "radios moviles", "radiocomunicacion"];
+    const otras = [...vistas.entries()].filter(([clave]) => !radios.includes(clave)).map(([, texto]) => texto);
+    return ["Todos", "Radiocomunicación", ...otras, "Accesorios"];
   }, [productos]);
-  const BRANDS = useMemo(() => ["Todas", ...Array.from(new Set(productos.map((p) => p.brand))).sort()], [productos]);
+
+  // Igual para las marcas: "MOTOROLA" y "Motorola" cuentan como una sola.
+  const BRANDS = useMemo(() => {
+    const vistas = new Map<string, string>();
+    productos.forEach((p) => {
+      const clave = norm(p.brand);
+      if (clave && !vistas.has(clave)) vistas.set(clave, (p.brand ?? "").trim());
+    });
+    return ["Todas", ...[...vistas.values()].sort((a, b) => a.localeCompare(b))];
+  }, [productos]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>("inicio");
@@ -597,21 +632,36 @@ const accesorioToProduct = (a: Accesorio): Product => ({
     setMenuOpen(false);
   };
 
+  // Aqui se decide que productos se muestran segun el buscador y los filtros.
+  // Todas las comparaciones pasan por norm(), asi que no importan mayusculas,
+  // acentos ni espacios de sobra en el Google Sheet.
   const filteredProducts = productos.filter((p) => {
-    const matchCat = activeCategory === "Todos" || (activeCategory === "Radiocomunicación" ? (p.category.toLowerCase() === "radios portátiles" || p.category.toLowerCase() === "radios móviles" || p.category.toLowerCase() === "radiocomunicación") : p.category === activeCategory);
-    const matchSearch = searchQuery === "" || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.model.toLowerCase().includes(searchQuery.toLowerCase()) || p.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchBrand = activeBrand === "" || p.brand === activeBrand;
+    const cat = norm(p.category);
+    const matchCat =
+      activeCategory === "Todos" ||
+      (norm(activeCategory) === "radiocomunicacion"
+        ? cat === "radios portatiles" || cat === "radios moviles" || cat === "radiocomunicacion"
+        : cat === norm(activeCategory));
+    const q = norm(searchQuery);
+    const matchSearch = q === "" || norm(p.name).includes(q) || norm(p.model).includes(q) || norm(p.brand).includes(q);
+    const matchBrand = activeBrand === "" || norm(p.brand) === norm(activeBrand);
     return matchCat && matchSearch && matchBrand;
   });
 
-const filteredAccesorios = accesorios.filter((a) => {
-    const matchSearch = searchQuery === "" || a.nombre.toLowerCase().includes(searchQuery.toLowerCase()) || a.marca.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchBrand = activeBrand === "" || a.marca === activeBrand;
+// Lo mismo para los accesorios: misma tolerancia a mayusculas y acentos.
+  const filteredAccesorios = accesorios.filter((a) => {
+    const q = norm(searchQuery);
+    const matchSearch = q === "" || norm(a.nombre).includes(q) || norm(a.marca).includes(q);
+    const matchBrand = activeBrand === "" || norm(a.marca) === norm(activeBrand);
     return matchSearch && matchBrand;
   });
   const productNameById = useMemo(() => Object.fromEntries(productos.map((p) => [String(p.id), p.name])), [productos]);
-  const pagedProducts = filteredProducts.slice(catalogPage * PRODUCTS_PER_PAGE, (catalogPage + 1) * PRODUCTS_PER_PAGE);
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+  // Red de seguridad: si quedamos parados en una pagina que ya no existe (por
+  // ejemplo la 3, cuando el filtro solo dejo 1 pagina), en vez de mostrar una
+  // lista vacia nos movemos a la ultima pagina valida.
+  const safePage = totalPages > 0 ? Math.min(catalogPage, totalPages - 1) : 0;
+  const pagedProducts = filteredProducts.slice(safePage * PRODUCTS_PER_PAGE, (safePage + 1) * PRODUCTS_PER_PAGE);
 
 const handleFormSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -892,7 +942,7 @@ const handleFormSubmit = async (e: React.FormEvent) => {
             </div>
             <select
               value={activeBrand}
-              onChange={(e) => setActiveBrand(e.target.value)}
+              onChange={(e) => { setActiveBrand(e.target.value); setCatalogPage(0); }}
               className="h-9 px-3 bg-input-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-accent/50 focus:border-accent/50"
             >
               <option value="">Filtrar por marca</option>
@@ -1050,15 +1100,15 @@ const handleFormSubmit = async (e: React.FormEvent) => {
           {/* Pagination */}
           {activeCategory !== "Accesorios" && totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-8">
-              <button onClick={() => setCatalogPage((p) => Math.max(0, p - 1))} disabled={catalogPage === 0} className="px-3 py-1.5 text-sm border border-border rounded-xl disabled:opacity-30 hover:border-accent/50 transition-colors">
+              <button onClick={() => setCatalogPage(Math.max(0, safePage - 1))} disabled={safePage === 0} className="px-3 py-1.5 text-sm border border-border rounded-xl disabled:opacity-30 hover:border-accent/50 transition-colors">
                 Anterior
               </button>
               {Array.from({ length: totalPages }, (_, i) => (
-                <button key={`page-${i}`} onClick={() => setCatalogPage(i)} className={`w-8 h-8 text-sm rounded-full ${catalogPage === i ? "bg-accent text-white" : "border border-border hover:border-accent/50"} transition-colors`}>
+                <button key={`page-${i}`} onClick={() => setCatalogPage(i)} className={`w-8 h-8 text-sm rounded-full ${safePage === i ? "bg-accent text-white" : "border border-border hover:border-accent/50"} transition-colors`}>
                   {i + 1}
                 </button>
               ))}
-              <button onClick={() => setCatalogPage((p) => Math.min(totalPages - 1, p + 1))} disabled={catalogPage === totalPages - 1} className="px-3 py-1.5 text-sm border border-border rounded-xl disabled:opacity-30 hover:border-accent/50 transition-colors">
+              <button onClick={() => setCatalogPage(Math.min(totalPages - 1, safePage + 1))} disabled={safePage >= totalPages - 1} className="px-3 py-1.5 text-sm border border-border rounded-xl disabled:opacity-30 hover:border-accent/50 transition-colors">
                 Siguiente
               </button>
             </div>
@@ -1877,8 +1927,393 @@ const handleFormSubmit = async (e: React.FormEvent) => {
 
                 {/* ─────────── PEGA AQUI EL TEXTO ─────────── */}
                 <p className="text-muted-foreground">
-                  Aquí van los Términos y Condiciones de PROSESA. Sustituye este
-                  párrafo por el texto definitivo.
+                 TÉRMINOS Y CONDICIONES DE USO, COMPRA, CONTRATACIÓN Y RENTA
+Última actualización: 11 de agosto del 2026
+1. IDENTIFICACIÓN DEL PROVEEDOR
+Los presentes Términos y Condiciones regulan el acceso, navegación, compra de bienes, contratación de servicios y renta de equipos ofrecidos a través del sitio web www.prosesaingenieria.com (en adelante, el “Sitio”).
+El proveedor responsable es:
+Razón social: PROTECCIÓN DE SISTEMAS ELECTRONICOS
+ Nombre comercial: PROSESA INGENIERIA
+ RFC: PSE120330387
+ Domicilio: CALLE TERCER AVENIDA 1635, ARBOLEDAS DE NUEVA LINDA VISTA,GUADALUPE, NUEVO LEÓN.
+ Teléfono: (81) 8334-2330 / (81) 8334-2343
+ Correo electrónico: PROSESA@PROSESAINGENIERIA.COM
+ Sitio web: www.prosesaingenieria.com
+En adelante, la empresa será denominada como “EL PROVEEDOR”.
+La persona que navegue, compre, contrate un servicio o rente equipos a través del Sitio será denominada como “EL CLIENTE” o “EL CONSUMIDOR”, según corresponda.
+
+2. ACEPTACIÓN DE LOS TÉRMINOS Y CONDICIONES
+El acceso y uso del Sitio, así como la adquisición de cualquier producto, contratación de servicio o renta de equipo, implica que EL CLIENTE manifiesta haber leído, comprendido y aceptado los presentes Términos y Condiciones.
+Cuando la legislación aplicable requiera consentimiento expreso, EL CLIENTE deberá manifestarlo mediante los mecanismos habilitados en el Sitio.
+Si EL CLIENTE no está de acuerdo con alguno de estos términos, deberá abstenerse de utilizar el Sitio o contratar los productos y servicios ofrecidos.
+EL PROVEEDOR podrá modificar estos Términos y Condiciones cuando resulte necesario. Las modificaciones serán publicadas en el Sitio indicando la fecha de actualización correspondiente.
+Las condiciones aplicables a una operación serán las vigentes al momento en que EL CLIENTE realice la compra, contratación o reservación correspondiente, sin perjuicio de los derechos que legalmente correspondan al consumidor.
+
+ 
+ 
+ 
+3. USO DEL SITIO
+EL CLIENTE se compromete a utilizar el Sitio de manera lícita y conforme a estos Términos y Condiciones.
+Queda prohibido utilizar el Sitio para:
+a) Realizar actividades fraudulentas o ilícitas.
+b) Intentar obtener acceso no autorizado a sistemas, cuentas o información.
+c) Introducir virus, código malicioso o cualquier mecanismo que pueda afectar la operación del Sitio.
+d) Utilizar información, imágenes, marcas, textos o materiales del Sitio sin autorización.
+e) Realizar compras utilizando información o medios de pago que no pertenezcan legítimamente al usuario.
+f) Utilizar los servicios o equipos adquiridos para actividades contrarias a la legislación aplicable.
+EL PROVEEDOR podrá suspender o cancelar operaciones cuando existan indicios razonables de fraude, suplantación de identidad, uso indebido de medios de pago o cualquier otra conducta ilícita, sin perjuicio de las obligaciones legales que correspondan.
+
+4. PRODUCTOS Y SERVICIOS
+EL PROVEEDOR podrá comercializar, entre otros:
+Equipos electrónicos.
+Equipos de radiocomunicación.
+Accesorios.
+Refacciones.
+Consumibles.
+Servicios técnicos.
+Programación o configuración de equipos.
+Mantenimiento.
+Instalación.
+Soporte técnico.
+ 
+ 
+Servicios de comunicación.
+Renta de equipos.
+Otros productos o servicios descritos en el Sitio.
+Las características, fotografías, especificaciones, disponibilidad y precios de cada producto o servicio serán indicados en la publicación correspondiente.
+Las imágenes son ilustrativas cuando así se indique. Las características técnicas de los productos estarán sujetas a las especificaciones del fabricante.
+
+5. PRECIOS
+Los precios serán publicados en moneda nacional, salvo que expresamente se indique otra moneda.
+El precio total aplicable a la operación deberá ser informado al CLIENTE antes de finalizar la compra, incluyendo los impuestos, cargos y conceptos que correspondan.
+Los gastos de envío, instalación, configuración, programación, traslado, maniobras u otros servicios adicionales serán informados antes de confirmar la operación cuando resulten aplicables.
+EL PROVEEDOR podrá modificar precios y promociones, pero dichas modificaciones no afectarán operaciones que ya hayan sido confirmadas, salvo los casos permitidos por la legislación aplicable.
+En caso de existir un error evidente en el precio publicado que resulte manifiestamente incorrecto, EL PROVEEDOR podrá contactar al CLIENTE para confirmar la operación antes de procesarla, respetando en todo momento los derechos que correspondan conforme a la legislación aplicable.
+
+6. DISPONIBILIDAD DE PRODUCTOS
+La publicación de un producto no garantiza necesariamente su disponibilidad inmediata.
+En caso de que un producto adquirido no se encuentre disponible, EL PROVEEDOR informará al CLIENTE y, según corresponda, podrá ofrecer:
+a) Sustitución por un producto equivalente, previa aceptación del CLIENTE.
+b) Reprogramación de la entrega.
+c) Cancelación de la operación.
+d) Reembolso de las cantidades que legalmente correspondan.
+ 
+ 
+ 
+7. PROCESO DE COMPRA
+Para adquirir un producto o contratar un servicio, EL CLIENTE deberá:
+Seleccionar el producto o servicio.
+Proporcionar los datos solicitados.
+Seleccionar el método de entrega, cuando corresponda.
+Seleccionar el método de pago.
+Revisar el resumen de la operación.
+Aceptar los presentes Términos y Condiciones.
+Confirmar la operación.
+La recepción de una confirmación electrónica acredita la recepción de la solicitud, pero no necesariamente implica que la operación haya sido procesada o enviada, salvo que la comunicación indique expresamente lo contrario.
+
+8. MÉTODOS DE PAGO
+EL PROVEEDOR podrá aceptar los métodos de pago que se encuentren disponibles en el Sitio.
+Entre ellos podrán encontrarse:
+Transferencia bancaria.
+Depósito bancario.
+Plataformas de pago electrónico.
+Otros medios expresamente habilitados.
+Los pagos estarán sujetos a los procesos de autorización y validación correspondientes.
+EL PROVEEDOR no tendrá acceso a información financiera sensible que sea procesada directamente por las instituciones bancarias o plataformas de pago, salvo aquella información que dichas plataformas legítimamente proporcionen para identificar o confirmar una operación.
+
+ 
+ 
+ 
+ 
+ 
+9. FACTURACIÓN
+EL CLIENTE podrá solicitar factura de las operaciones realizadas, proporcionando los datos fiscales necesarios dentro del plazo establecido por EL PROVEEDOR y conforme a la legislación fiscal aplicable.
+Los datos proporcionados para facturación deberán ser correctos y completos.
+EL PROVEEDOR no será responsable por errores ocasionados por información fiscal incorrecta proporcionada por EL CLIENTE.
+
+10. ENVÍOS Y ENTREGAS
+El envío de los productos estará sujeto a negociación entre  EL CLIENTE  y EL PROVEEDOR durante el proceso de compra.
+Los tiempos de entrega son estimados y pueden variar debido a factores externos, incluyendo disponibilidad del producto, empresa transportista, condiciones climáticas, días inhábiles, zonas extendidas o circunstancias de fuerza mayor.
+En caso de envio a domicilio expresado por EL CLIENTE , este deberá proporcionar correctamente su domicilio y datos de contacto.
+Cuando la entrega requiera firma, identificación o cualquier mecanismo de recepción, EL CLIENTE deberá cumplir con los requisitos correspondientes.
+Una vez entregado el paquete, EL CLIENTE deberá revisar, cuando sea posible, el estado exterior del mismo y reportar cualquier anomalía a EL PROVEEDOR.
+
+11. SERVICIOS
+La contratación de servicios estará sujeta a las características, alcance, precio, duración y condiciones indicadas en la cotización, orden de servicio, ficha del producto o confirmación correspondiente.
+Cuando un servicio requiera información, acceso, instalaciones, permisos o colaboración por parte del CLIENTE, éste deberá proporcionarlos oportunamente.
+Las fechas de prestación podrán modificarse cuando existan circunstancias ajenas a EL PROVEEDOR o cuando EL CLIENTE no proporcione oportunamente la información o condiciones necesarias.
+ 
+ 
+ 
+ 
+Cualquier servicio adicional no contemplado originalmente podrá generar un costo adicional, el cual deberá ser informado y, cuando corresponda, autorizado previamente por EL CLIENTE.
+
+12. GARANTÍAS
+Los productos que cuenten con garantía estarán sujetos a los términos y condiciones establecidos por el fabricante y/o por EL PROVEEDOR, según corresponda.
+La garantía no cubrirá daños ocasionados por:
+a) Golpes, caídas o accidentes.
+b) Humedad o exposición a líquidos cuando el equipo no esté diseñado para ello.
+c) Uso incorrecto.
+d) Instalaciones incorrectas.
+e) Alteraciones, modificaciones o reparaciones realizadas por personas no autorizadas.
+f) Uso de accesorios, baterías, cargadores o componentes incompatibles.
+g) Desgaste normal por uso.
+h) Daños derivados de voltaje, alimentación eléctrica o condiciones externas fuera de las especificaciones del fabricante.
+i) Uso distinto al indicado por el fabricante.
+Lo anterior se aplicará sin limitar los derechos que correspondan al consumidor conforme a la legislación aplicable.
+
+13. POLÍTICA DE DEVOLUCIONES, CAMBIOS Y CANCELACIONES
+13.1 Solicitud de devolución
+EL CLIENTE podrá solicitar una devolución, cancelación o cambio mediante:
+Correo: PROSESA@PROSESAINGENIERIA.COM
+ Teléfono: 81 8334-2330
+ Horario: LUN-VIE DE 8:00 A.M A 5:30 P.M
+La solicitud deberá incluir, cuando corresponda:
+Nombre del CLIENTE.
+Número de pedido.
+Producto o servicio contratado.
+ 
+ 
+Motivo de la solicitud.
+Fotografías o evidencia del estado del producto cuando resulte necesario.
+Información adicional solicitada por EL PROVEEDOR.
+EL PROVEEDOR informará al CLIENTE el procedimiento aplicable.
+
+13.2 Derecho de revocación
+Cuando resulte aplicable conforme a la legislación de protección al consumidor, EL CLIENTE podrá ejercer los derechos de revocación o devolución dentro del plazo legal correspondiente.
+No serán aplicables las excepciones o limitaciones previstas en esta política cuando contradigan un derecho irrenunciable reconocido al consumidor por la legislación aplicable.
+
+13.3 Productos que pueden ser devueltos
+Sin perjuicio de los derechos legales del consumidor, podrán aceptarse devoluciones cuando:
+a) El producto haya sido entregado incorrectamente.
+b) El producto presente un defecto atribuible al proveedor o fabricante.
+c) El producto haya sufrido daños durante el transporte y se determine que corresponde una reclamación.
+d) La devolución se encuentre amparada por la garantía.
+e) Exista cualquier otro supuesto previsto por la legislación aplicable.
+Cuando la devolución corresponda a un supuesto legal o a un defecto atribuible a EL PROVEEDOR, los gastos de devolución serán cubiertos por EL PROVEEDOR cuando así corresponda legalmente.
+
+13.4 Condiciones de devolución
+Cuando legalmente proceda una devolución por voluntad del CLIENTE, el producto deberá entregarse, en la medida permitida por la legislación aplicable:
+En condiciones razonables.
+Con sus accesorios.
+Con manuales y documentación.
+Con empaque original cuando resulte aplicable.
+ 
+ 
+Sin modificaciones no autorizadas.
+La ausencia de empaque o documentación no podrá utilizarse para restringir derechos que legalmente correspondan al consumidor
+
+13.5 Productos no retornables
+Podrán existir productos o servicios que, por su naturaleza, no puedan ser devueltos o que estén sujetos a condiciones especiales.
+Entre ellos pueden encontrarse, dependiendo del caso:
+Servicios que ya hayan sido completamente prestados.
+Productos personalizados o fabricados bajo especificaciones particulares del CLIENTE.
+Productos que por su naturaleza no puedan ser devueltos.
+Consumibles abiertos o utilizados cuando la legislación permita dicha excepción.
+Licencias, activaciones o servicios digitales cuando hayan sido utilizados, en los casos legalmente permitidos.
+Otros productos respecto de los cuales exista una excepción legal aplicable.
+Las excepciones serán informadas antes de finalizar la compra cuando corresponda.
+
+13.6 Reembolsos
+Cuando corresponda realizar un reembolso, éste será procesado conforme al medio de pago utilizado originalmente, salvo que EL CLIENTE autorice expresamente otro mecanismo cuando la legislación permita dicha alternativa.
+El tiempo efectivo en que el dinero se refleje en la cuenta del CLIENTE puede depender de la institución bancaria, procesador de pagos o medio utilizado.
+No se condicionará indebidamente una devolución legalmente procedente a la aceptación de vales, tarjetas de regalo o créditos internos.
+
+14. CANCELACIÓN DE SERVICIOS
+Las condiciones de cancelación de servicios dependerán de la naturaleza del servicio contratado.
+ 
+ 
+ 
+ 
+Cuando un servicio requiera reservación de personal, equipo, transporte, instalaciones o recursos específicos, EL PROVEEDOR podrá establecer cargos de cancelación previamente informados, siempre que sean legalmente procedentes y hayan sido aceptados por EL CLIENTE.
+Los derechos legales de cancelación o revocación del consumidor prevalecerán sobre cualquier condición contractual que los limite indebidamente.
+ 
+15. CONDICIONES ESPECIALES PARA RENTA DE EQUIPOS DE RADIOCOMUNICACIÓN
+Esta sección será aplicable a la renta temporal de radios portátiles, radios móviles, repetidores, accesorios y demás equipos de radiocomunicación ofrecidos por EL PROVEEDOR.
+15.1 Propiedad de los equipos
+Todos los equipos entregados en renta continuarán siendo propiedad de EL PROVEEDOR, salvo que exista un contrato escrito que establezca expresamente lo contrario.
+La renta únicamente concede al CLIENTE el derecho temporal de uso del equipo durante el periodo contratado.
+EL CLIENTE no podrá vender, ceder, subarrendar, empeñar, transferir o entregar los equipos a terceros sin autorización previa y por escrito de EL PROVEEDOR.
+
+15.2 Entrega y recepción
+Antes de la entrega, EL PROVEEDOR podrá registrar:
+Marca.
+Modelo.
+Número de serie.
+Número de inventario.
+Accesorios entregados.
+Estado físico.
+Estado de funcionamiento.
+Nivel o condición de batería.
+Otros datos de identificación.
+
+
+
+
+ 
+ 
+EL CLIENTE deberá revisar los equipos al recibirlos y reportar cualquier anomalía inmediatamente.
+Salvo que se haga constar una observación en el acta o comprobante de entrega, se entenderá que el equipo fue recibido en condiciones aparentes adecuadas de funcionamiento.
+
+15.3 Depósito en garantía
+EL PROVEEDOR podrá solicitar un depósito en garantía antes de entregar los equipos.
+El monto será informado previamente al CLIENTE.
+El depósito podrá utilizarse, cuando legalmente proceda y de acuerdo con las condiciones contratadas, para cubrir:
+Daños imputables al CLIENTE.
+Pérdida del equipo.
+Accesorios faltantes.
+Costos de reparación.
+Incumplimiento de obligaciones económicas.
+Cargos por entrega tardía.
+Otros conceptos expresamente establecidos en la orden de renta.
+Una vez finalizada la renta, entregados los equipos y verificado su estado, el depósito será devuelto en los términos establecidos en la cotización o contrato de renta.
+
+15.4 Responsabilidad del CLIENTE
+Durante el periodo de renta, EL CLIENTE será responsable de custodiar adecuadamente los equipos.
+EL CLIENTE deberá:
+a) Utilizar los equipos conforme a las instrucciones proporcionadas.
+b) Evitar golpes, caídas, humedad y exposición a condiciones que puedan dañarlos.
+c) Utilizar únicamente accesorios compatibles y autorizados.
+d) No modificar, abrir o reparar los equipos.
+e) No retirar etiquetas, números de serie o identificadores.
+ 
+ 
+f) No cambiar configuraciones técnicas sin autorización.
+g) No permitir el uso de los equipos por personas no autorizadas cuando ello represente un riesgo de daño o uso indebido.
+h) Devolver los equipos en la fecha acordada.
+
+15.5 Pérdida, robo o daño
+En caso de robo, pérdida, destrucción o daño grave de un equipo, EL CLIENTE deberá notificar inmediatamente a EL PROVEEDOR.
+Cuando corresponda, EL CLIENTE deberá presentar denuncia o constancia ante las autoridades competentes.
+La responsabilidad económica del CLIENTE será determinada considerando el contrato de renta, el estado del equipo, el daño ocasionado y la legislación aplicable.
+EL PROVEEDOR podrá cobrar el costo de reparación o reposición cuando el daño, pérdida o destrucción sea imputable al CLIENTE.
+
+15.6 Uso de frecuencias y cumplimiento regulatorio
+EL CLIENTE deberá utilizar los equipos únicamente dentro de los parámetros, frecuencias, configuraciones y condiciones autorizadas.
+EL CLIENTE no podrá modificar o reprogramar equipos para operar en frecuencias no autorizadas ni utilizar el equipo para interferir deliberadamente otros sistemas de radiocomunicación.
+Cuando el servicio contratado involucre frecuencias, concesiones, autorizaciones, constancias de uso, redes o cualquier otro elemento sujeto a regulación, las partes deberán cumplir con las disposiciones aplicables y con las autorizaciones correspondientes.
+EL CLIENTE será responsable de proporcionar información veraz sobre el lugar, actividad y finalidad para la que requiere los equipos.
+Cuando el uso específico del equipo requiera una autorización, concesión o permiso a nombre del CLIENTE, éste deberá obtenerla y mantenerla vigente.
+EL PROVEEDOR podrá solicitar documentación que permita acreditar la legalidad del uso solicitado.
+ 
+ 
+ 
+            15.7 Prohibiciones sobre los equipos
+Queda prohibido:
+Alterar el hardware.
+Abrir los equipos.
+Modificar potencia, frecuencia u otros parámetros técnicos sin autorización.
+Eliminar números de serie.
+Instalar software no autorizado.
+Utilizar accesorios incompatibles que puedan dañar el equipo.
+Utilizar los equipos para interferir comunicaciones.
+Utilizar los equipos para actividades ilícitas.
+Subarrendar los equipos.
+Sacar los equipos del territorio autorizado en el contrato cuando exista dicha restricción.
+Entregar los equipos a terceros sin autorización.
+
+15.8 Renta por tiempo adicional
+Si EL CLIENTE conserva los equipos después de la fecha y hora acordadas, podrán generarse cargos adicionales conforme a la tarifa de renta vigente o a la tarifa específicamente establecida en el contrato.
+La devolución tardía no implicará automáticamente una ampliación gratuita del periodo de renta.
+
+15.9 Fallas durante la renta
+Si un equipo presenta una falla no imputable al CLIENTE, EL PROVEEDOR procurará repararlo o sustituirlo por otro equipo equivalente, sujeto a disponibilidad.
+Cuando corresponda, EL PROVEEDOR podrá ofrecer una solución alternativa.
+No se considerarán fallas imputables al equipo aquellas ocasionadas por golpes, humedad, modificaciones, accesorios incompatibles, uso incorrecto, negligencia o cualquier otra causa atribuible al CLIENTE.
+ 
+ 
+ 
+ 
+
+16. LIMITACIÓN DE RESPONSABILIDAD
+EL PROVEEDOR no será responsable por daños indirectos, pérdida de información, pérdida de ingresos o interrupciones ocasionadas por hechos fuera de su control, salvo cuando dicha responsabilidad sea exigible conforme a la legislación aplicable.
+En el caso de servicios de radiocomunicación, EL CLIENTE reconoce que la cobertura y calidad de la comunicación pueden depender de factores como:
+Topografía.
+Edificaciones.
+Interferencia electromagnética.
+Condiciones atmosféricas.
+Saturación.
+Ubicación de los equipos.
+Infraestructura utilizada.
+Obstáculos físicos.
+Disponibilidad de redes o sistemas de terceros.
+La contratación de un equipo de radiocomunicación no garantiza cobertura absoluta en cualquier ubicación.
+Ninguna disposición de estos Términos y Condiciones tendrá como finalidad excluir o limitar derechos que legalmente sean irrenunciables para el consumidor.
+
+17. PROPIEDAD INTELECTUAL
+Todos los contenidos del Sitio, incluyendo textos, fotografías, gráficos, logotipos, diseños, marcas, nombres comerciales, software y elementos visuales, son propiedad de EL PROVEEDOR o de sus respectivos titulares.
+Queda prohibida su reproducción, distribución, modificación o utilización comercial sin autorización previa.
+Las marcas de terceros pertenecen a sus respectivos propietarios.
+
+ 
+ 
+ 
+ 
+18. PRIVACIDAD Y DATOS PERSONALES
+Los datos personales proporcionados por EL CLIENTE serán tratados conforme al Aviso de Privacidad de EL PROVEEDOR.
+El Aviso de Privacidad podrá consultarse en:
+el enlace "Política de Privacidad" ubicado en el pie de página de este mismo Sitio
+EL CLIENTE deberá consultar dicho documento para conocer las finalidades, mecanismos, derechos y procedimientos relacionados con el tratamiento de sus datos personales.
+
+29. COMUNICACIONES ELECTRÓNICAS
+EL CLIENTE acepta que determinadas comunicaciones relacionadas con sus operaciones puedan realizarse por medios electrónicos, incluyendo correo electrónico, mensajes, notificaciones dentro del Sitio u otros medios de contacto proporcionados.
+Estas comunicaciones podrán incluir:
+Confirmaciones de compra.
+Información de envío.
+Facturación.
+Solicitudes de información.
+Confirmaciones de renta.
+Avisos relacionados con servicios.
+Respuestas a solicitudes de atención.
+
+20. CASOS FORTUITOS Y FUERZA MAYOR
+EL PROVEEDOR no será responsable por retrasos o incumplimientos derivados de circunstancias fuera de su control razonable, incluyendo desastres naturales, incendios, inundaciones, fallas generalizadas de telecomunicaciones, interrupciones de suministro, conflictos laborales, actos de autoridad, restricciones gubernamentales, disturbios, guerras, pandemias u otros eventos similares.
+EL PROVEEDOR procurará informar al CLIENTE y adoptar medidas razonables para reanudar sus obligaciones.
+
+ 
+ 
+ 
+21. ATENCIÓN A CLIENTES Y RECLAMACIONES
+EL CLIENTE podrá presentar dudas, aclaraciones, reclamaciones o solicitudes mediante:
+Correo: PROSESA@PROSESAINGENIERIA.COM
+ Teléfono: 81 8334-2330
+ WhatsApp: 81 2469 6183
+ Horario: Lunes a Viernes de 8:00 a 18:00 hrs y Sábados de 9:00 a 13:00 hrs
+EL PROVEEDOR procurará atender las solicitudes dentro de un plazo razonable y conforme a la naturaleza del caso.
+
+22. LEGISLACIÓN APLICABLE
+Estos Términos y Condiciones se regirán por las leyes aplicables de los Estados Unidos Mexicanos.
+En materia de protección al consumidor, se respetarán los derechos reconocidos por la legislación mexicana aplicable.
+Cuando corresponda, serán aplicables las disposiciones de la Ley Federal de Protección al Consumidor y demás ordenamientos relacionados con la operación.
+En materia de radiocomunicaciones y uso del espectro radioeléctrico, serán aplicables las disposiciones correspondientes y las autorizaciones, concesiones o condiciones regulatorias que resulten procedentes.
+
+23. JURISDICCIÓN Y COMPETENCIA
+Para la interpretación y cumplimiento de estos Términos y Condiciones, las partes se sujetarán a las autoridades y procedimientos que resulten competentes conforme a la legislación aplicable.
+Nada de lo establecido en esta cláusula pretende limitar el derecho del consumidor a acudir ante las autoridades de protección al consumidor que legalmente resulten competentes.
+
+24. NULIDAD PARCIAL
+Si alguna disposición de estos Términos y Condiciones fuera considerada inválida, ilegal o inaplicable, las demás disposiciones permanecerán vigentes.
+La disposición afectada deberá interpretarse, en la medida legalmente posible, de manera que conserve su finalidad original sin contravenir la legislación aplicable.
+ 
+ 
+
+25. PREVALENCIA DE DERECHOS DEL CONSUMIDOR
+Ninguna disposición de estos Términos y Condiciones deberá interpretarse como una renuncia, limitación o eliminación de derechos que sean reconocidos al consumidor por disposiciones legales de carácter obligatorio.
+En caso de existir contradicción entre una disposición de estos Términos y Condiciones y una disposición legal imperativa aplicable, prevalecerá la disposición legal correspondiente.
+
+26. VIGENCIA
+Los presentes Términos y Condiciones entran en vigor a partir de su publicación en el Sitio y permanecerán vigentes hasta que sean modificados o sustituidos.
+Fecha de entrada en vigor: 19 de agosto del 2026
+Última actualización: 19 de agosto del 2026
+
+DATOS DE CONTACTO DEL PROVEEDOR
+Razón social: PROTECCIÓN DE SISTEMAS ELECTRÓNICOS
+ Nombre comercial: PROSESA INGENIERÍA
+ RFC: PSE120330387
+ Domicilio: CALLE TERCER AVENIDA 1635, ARBOLEDAS DE NUEVA LINDA VISTA,GUADALUPE, NUEVO LEÓN.
+ Teléfono: 81 8334-2330
+ Correo electrónico: PROSESA@PROSESAINGENIERIA.COM
+ Sitio web: www.prosesaingenieria.com
                 </p>
                 {/* ─────────── FIN DEL TEXTO ─────────── */}
 
