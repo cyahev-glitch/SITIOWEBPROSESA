@@ -72,11 +72,11 @@
    sobre estos. Pero ya no hace falta ese archivo.)
    ============================================================ */
 const EMAILJS_SERVICE_ID =
-  import.meta.env.VITE_EMAILJS_SERVICE_ID || "PEGA_AQUI_TU_SERVICE_ID";
+  import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_n8f4sft";
 const EMAILJS_TEMPLATE_ID =
-  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "PEGA_AQUI_TU_TEMPLATE_ID";
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_fjpe3tr";
 const EMAILJS_PUBLIC_KEY =
-  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "PEGA_AQUI_TU_PUBLIC_KEY";
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "fvP_z5l6DRK9uQamP";
 
 // ─── LISTA DE INGREDIENTES ───────────────────────────────────
 // Las lineas que empiezan con "import" son la lista de cosas que
@@ -1179,7 +1179,7 @@ const handleFormSubmit = async (e: React.FormEvent) => {
             <div className="dist-scroll flex gap-5" style={{ width: "max-content" }}>
               {[...DISTRIBUTORS, ...DISTRIBUTORS].map((d, i) => (
                 <div key={`dr-${i}`} className="flex-shrink-0 w-44 h-20 bg-[#F4F7FB] rounded-2xl flex items-center justify-center px-5 border border-border/40 hover:border-primary/30 hover:bg-secondary/60 transition-colors cursor-default">
-                  <ImageWithFallback src={d.logo} alt={d.name} className={`max-w-full object-contain ${d.name === "Hytera" ? "max-h-16" : "max-h-10"}`} />
+                  <ImageWithFallback src={d.logo} alt={d.name} className={`max-w-full object-contain max-h-25`} />
                 </div>
               ))}
             </div>
@@ -1926,8 +1926,16 @@ const handleFormSubmit = async (e: React.FormEvent) => {
               <div className="overflow-y-auto px-6 py-5 text-sm text-foreground leading-relaxed space-y-5">
 
                 {/* ─────────── PEGA AQUI EL TEXTO ─────────── */}
-                <p className="text-muted-foreground">
-                 TÉRMINOS Y CONDICIONES DE USO, COMPRA, CONTRATACIÓN Y RENTA
+                {/* El texto legal va aqui abajo, entre los dos acentos graves (`).
+                    Se escribe tal cual, con sus saltos de linea normales.
+
+                    El sitio lo formatea solo: las lineas que empiezan con un
+                    numero y punto ("1. IDENTIFICACION DEL PROVEEDOR") se
+                    muestran como titulo de seccion, y el resto como parrafos.
+
+                    Para editarlo: cambia el texto y ya. No toques nada de
+                    alrededor. */}
+                {`TÉRMINOS Y CONDICIONES DE USO, COMPRA, CONTRATACIÓN Y RENTA
 Última actualización: 11 de agosto del 2026
 1. IDENTIFICACIÓN DEL PROVEEDOR
 Los presentes Términos y Condiciones regulan el acceso, navegación, compra de bienes, contratación de servicios y renta de equipos ofrecidos a través del sitio web www.prosesaingenieria.com (en adelante, el “Sitio”).
@@ -2313,8 +2321,17 @@ Razón social: PROTECCIÓN DE SISTEMAS ELECTRÓNICOS
  Domicilio: CALLE TERCER AVENIDA 1635, ARBOLEDAS DE NUEVA LINDA VISTA,GUADALUPE, NUEVO LEÓN.
  Teléfono: 81 8334-2330
  Correo electrónico: PROSESA@PROSESAINGENIERIA.COM
- Sitio web: www.prosesaingenieria.com
-                </p>
+ Sitio web: www.prosesaingenieria.com`
+                  .split("\n")
+                  .map((linea) => linea.trim())
+                  .filter((linea) => linea !== "")
+                  .map((linea, i) =>
+                    /^\d+\.\s/.test(linea) ? (
+                      <h3 key={`tyc-${i}`} className="font-semibold text-base text-primary mt-6 mb-1">{linea}</h3>
+                    ) : (
+                      <p key={`tyc-${i}`} className="text-muted-foreground">{linea}</p>
+                    )
+                  )}
                 {/* ─────────── FIN DEL TEXTO ─────────── */}
 
                 <p className="text-xs text-muted-foreground border-t border-border pt-4">Última actualización: 2025. PROSESA · Protección de Sistemas Electrónicos, S.A. de C.V.</p>
